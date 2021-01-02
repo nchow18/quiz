@@ -12,6 +12,10 @@ header {
     padding-bottom: 2rem;
 }
 
+form {
+    text-align: center;
+}
+
 header h1 {
     text-align: center;
     margin-left: auto;
@@ -39,6 +43,30 @@ header h1 {
     margin-left: 20%;
     margin-right: 20%;
     font-size: 1rem;
+    text-align: center;
+}
+
+.intro {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+#start-button {
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 2rem;
+    border: 5px solid black;
+}
+
+#start-button:hover {
+    background-color: black;
+    color: white;
+    box-shadow: 0 0 10px black;
 }
 
 body h3 {

@@ -1,37 +1,39 @@
 var points = 0;
 var correct = 0;
 var test, test_status, question, choice, chA, chB, chC, chD;
+var startQuiz = document.querySelector("#start-button")
+var pauseQuiz = document.querySelector("#pause-button")
 
-"use strict";
 
-let minute = 5;
-let second = 0;
-let millisecond = 0;
+var currentScore = document.getElementById("currentScore").innerHTML = "Current Score: " + correct;
 
-let cron;
+// for the username
+function setcookie() {
+    var name = prompt("Please enter your name");
+    document.cookie = "name=" + name + "; expires=Thu, 18 Dec 2021 12:00:00 GMT";
+}
 
-document.clock_main.start.onclick = () => start();
+var timeLeft = 100;
 
+function startTimer() {
+    setInterval(function()
+    {
+        if(timeLeft <= 0) {
+            clearInterval(downloadTimer); (document.getElementById("timer").innerHTML = "FINISHED"),(alert("QUIZ TIME ENDED!")); 
+            } else { 
+                (document.getElementById("timer").innerHTML = timeLeft + " seconds remaining");
+        }
+            timeLeft -= 1;
+        }, 1000);
+}
+
+//starting the quiz with a timer
 function start() {
-    PaymentRequest();
-    cron = setInterval(() => { TimeRanges(); }, 10);
-}
 
-function timer() {
-    if ((millisecond += 10) == 1000) {
-        millisecond = 0;
-        second ++;
-    }
-    if (second == 60) {
-        second = 0; 
-        minute++;
-    }
-    if (minute == 60) {minute = 0;}
-}
-
-document.getElementById('minute').innnerText = returnData(minute);
-document.getElementById('second').innerText = returnData(second);
-document.getElementById('millisecond').innerText = returnData(millisecond);
+    setcookie();
+    createQuestion();
+    startTimer();
+}   
 
 var questions = [
     {
@@ -107,6 +109,8 @@ function checkAnswer(){
     if(choice == questions[points].answer){
       //each time there is a correct answer this value increases
       correct++;
+    } else {
+        (alert("INCORRECT, TIME DEDUCTED BY 10s")), timeLeft -= 10;
     }
     // changes position of which character user is on
     points++;
@@ -114,4 +118,5 @@ function checkAnswer(){
     createQuestion();
   }
   // Add event listener to call createQuestion on page load event
-  window.addEventListener("load", createQuestion);
+  startQuiz.addEventListener("click", start);
+
