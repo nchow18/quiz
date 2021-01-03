@@ -1,40 +1,11 @@
 var points = 0;
 var correct = 0;
+var score = 0;
 var test, test_status, question, choice, chA, chB, chC, chD;
-var startQuiz = document.querySelector("#start-button")
+var startQuiz = document.getElementById("start-button")
 var pauseQuiz = document.querySelector("#pause-button")
-
-
-var currentScore = document.getElementById("currentScore").innerHTML = "Current Score: " + correct;
-
-// for the username
-function setcookie() {
-    var name = prompt("Please enter your name");
-    document.cookie = "name=" + name + "; expires=Thu, 18 Dec 2021 12:00:00 GMT";
-}
-
-var timeLeft = 100;
-
-function startTimer() {
-    setInterval(function()
-    {
-        if(timeLeft <= 0) {
-            clearInterval(downloadTimer); (document.getElementById("timer").innerHTML = "FINISHED"),(alert("QUIZ TIME ENDED!")); 
-            } else { 
-                (document.getElementById("timer").innerHTML = timeLeft + " seconds remaining");
-        }
-            timeLeft -= 1;
-        }, 1000);
-}
-
-//starting the quiz with a timer
-function start() {
-
-    setcookie();
-    createQuestion();
-    startTimer();
-}   
-
+var timeLeft = 3;
+var choices = document.getElementsByName("choices");
 var questions = [
     {
         question: "Who is the Actor for Iron Man in Avengers?",
@@ -62,12 +33,44 @@ var questions = [
     } 
 ];
 
+// for the username
+function setcookie() {
+    var name = prompt("Please enter your name");
+    document.cookie = "name=" + name + "; expires=Thu, 18 Dec 2021 12:00:00 GMT";
+    var currentScore = document.getElementById("currentScore").innerHTML = "<h2>"+name+" 's Current Score: "+correct+"</h2>";
+}
+
+function currentScore() {
+    if(choice === questions[points].answer) {score++;}
+}
+
+function startTimer() {
+
+    var begin = setInterval(function()
+    {
+        if(timeLeft <= 0) {
+            clearInterval(begin); (document.getElementById("timer").innerHTML = "FINISHED"),(alert("QUIZ TIME ENDED!")), (document.getElementById("test").innerHTML = "<h2>Please Try Again</h2><a href='index.html'><button type='button' name='start' id='start-button'>RETRY</button></a>");
+            } else { 
+                (document.getElementById("timer").innerHTML = timeLeft + " seconds remaining");
+        }
+            timeLeft -= 1;
+        }, 1000);
+}
+
+//starting the quiz with a timer
+function start() {
+
+    setcookie();
+    createQuestion();
+    startTimer();
+}   
+
 // this get function is short for the getElementById function  
 function get(x){
     return document.getElementById(x);
-  }
+}
 
-  // this function renders a question for display on the page
+// this function renders a question for display on the page
 function createQuestion(){
     test = get("test");
     if(points >= questions.length){
@@ -95,11 +98,9 @@ function createQuestion(){
     test.innerHTML += "<input class='hidden' type='checkbox' id='check2' value='C' name='choices'><label for='check2'><div class='btn-check2 btn-style'> "+chC+"</div></label><br>"
     test.innerHTML += "<input class='hidden' type='checkbox' id='check3' value='D' name='choices'><label for='check3'><div class='btn-check3 btn-style'> "+chD+"</div></label><br><br>";
     test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>";
-  }
+}
 
 function checkAnswer(){
-    // use getElementsByName because we have an array which it will loop through
-    choices = document.getElementsByName("choices");
     for(var i=0; i<choices.length; i++){
       if(choices[i].checked){
         choice = choices[i].value;
@@ -116,7 +117,8 @@ function checkAnswer(){
     points++;
     // then the createQuestion function runs again to go to next question
     createQuestion();
-  }
-  // Add event listener to call createQuestion on page load event
-  startQuiz.addEventListener("click", start);
+}
+  
+// Add event listener to call createQuestion when start quiz is clicked
+startQuiz.addEventListener("click", start);
 
