@@ -4,7 +4,7 @@ var score = 0;
 var test, test_status, question, choice, chA, chB, chC, chD;
 var startQuiz = document.getElementById("start-button")
 var pauseQuiz = document.querySelector("#pause-button")
-var timeLeft = 3;
+var timeLeft = 60;
 var choices = document.getElementsByName("choices");
 var questions = [
     {
@@ -35,13 +35,8 @@ var questions = [
 
 // for the username
 function setcookie() {
-    var name = prompt("Please enter your name");
-    document.cookie = "name=" + name + "; expires=Thu, 18 Dec 2021 12:00:00 GMT";
-    var currentScore = document.getElementById("currentScore").innerHTML = "<h2>"+name+" 's Current Score: "+correct+"</h2>";
-}
-
-function currentScore() {
-    if(choice === questions[points].answer) {score++;}
+    var userName = prompt("Enter your Name");
+    document.cookie = "name=" + userName + "; expires=Thu, 18 Dec 2021 12:00:00 GMT";
 }
 
 function startTimer() {
@@ -72,6 +67,7 @@ function get(x){
 
 // this function renders a question for display on the page
 function createQuestion(){
+    var currentScore = document.getElementById("currentScore").innerHTML = "<h2>Your Current Score: "+correct+"</h2>";
     test = get("test");
     if(points >= questions.length){
       test.innerHTML = "<h2>You got "+correct+" of "+questions.length+" questions correct</h2>";
@@ -101,6 +97,7 @@ function createQuestion(){
 }
 
 function checkAnswer(){
+    
     for(var i=0; i<choices.length; i++){
       if(choices[i].checked){
         choice = choices[i].value;
@@ -109,14 +106,10 @@ function checkAnswer(){
     // checks if answer matches the correct choice
     if(choice == questions[points].answer){
       //each time there is a correct answer this value increases
-      correct++;
+      correct++, points++, createQuestion(), alert("CORRECT CHOICE!, Next Question"); 
     } else {
-        (alert("INCORRECT, TIME DEDUCTED BY 10s")), timeLeft -= 10;
-    }
-    // changes position of which character user is on
-    points++;
-    // then the createQuestion function runs again to go to next question
-    createQuestion();
+    (alert("INCORRECT, TIME DEDUCTED BY 10s")), timeLeft -= 10, alert("TRY AGAIN");
+}
 }
   
 // Add event listener to call createQuestion when start quiz is clicked
