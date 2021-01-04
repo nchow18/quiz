@@ -6,9 +6,10 @@ var startQuiz = document.getElementById("start-button")
 var pauseQuiz = document.querySelector("#pause-button")
 var timeLeft = 60;
 var choices = document.getElementsByName("choices");
+
 var questions = [
     {
-        question: "Who is the Actor for Iron Man in Avengers?",
+        question: "Who is the Actor for Ironman in Avengers?",
         a: "Chris Hemsworth",
         b: "Robert Downy Jr.",
         c: "Tom Hiddleton",
@@ -44,7 +45,7 @@ function startTimer() {
     var begin = setInterval(function()
     {
         if(timeLeft <= 0) {
-            clearInterval(begin); (document.getElementById("timer").innerHTML = "FINISHED"),(alert("QUIZ TIME ENDED!")), (document.getElementById("test").innerHTML = "<h2>Please Try Again</h2><a href='index.html'><button type='button' name='start' id='start-button'>RETRY</button></a>");
+            clearInterval(begin); (document.getElementById("timer").innerHTML = "FINISHED"),(alert("QUIZ ENDED!")), (document.getElementById("test").innerHTML = "<h2>Try Again?</h2><a href='index.html'><button type='button' name='start' id='start-button'>RETRY</button></a>");
             } else { 
                 (document.getElementById("timer").innerHTML = timeLeft + " seconds remaining");
         }
@@ -75,8 +76,11 @@ function createQuestion(){
       // resets the variable to allow users to restart the test
       points = 0;
       correct = 0;
+      alert("Test Completed")
       // stops rest of createQuestion function running when test is completed
       return false;
+    } else {
+        alert("Next Question")
     }
     get("test_status").innerHTML = "Question "+(points+1)+" of "+questions.length;
     
@@ -93,7 +97,8 @@ function createQuestion(){
     test.innerHTML += "<input class='hidden' type='checkbox' id='check1' value='B' name='choices'><label for='check1'><div class='btn-check1 btn-style'> "+chB+"</div></label><br>";
     test.innerHTML += "<input class='hidden' type='checkbox' id='check2' value='C' name='choices'><label for='check2'><div class='btn-check2 btn-style'> "+chC+"</div></label><br>"
     test.innerHTML += "<input class='hidden' type='checkbox' id='check3' value='D' name='choices'><label for='check3'><div class='btn-check3 btn-style'> "+chD+"</div></label><br><br>";
-    test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>";
+    test.innerHTML += "<button id='submit-response' onclick='checkAnswer()'>Submit Answer</button>";
+
 }
 
 function checkAnswer(){
@@ -106,9 +111,9 @@ function checkAnswer(){
     // checks if answer matches the correct choice
     if(choice == questions[points].answer){
       //each time there is a correct answer this value increases
-      correct++, points++, createQuestion(), alert("CORRECT CHOICE!, Next Question"); 
-    } else {
-    (alert("INCORRECT, TIME DEDUCTED BY 10s")), timeLeft -= 10, alert("TRY AGAIN");
+      correct++, points++, createQuestion(); 
+        } else {
+            (alert("INCORRECT, TIME DEDUCTED BY 10s")), timeLeft -= 10, alert("TRY AGAIN");
 }
 }
   
