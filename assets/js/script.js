@@ -79,8 +79,6 @@ function createQuestion(){
       alert("Test Completed")
       // stops rest of createQuestion function running when test is completed
       return false;
-    } else {
-        alert("Next Question")
     }
     get("test_status").innerHTML = "Question "+(points+1)+" of "+questions.length;
     
@@ -93,27 +91,76 @@ function createQuestion(){
     test.innerHTML = "<h3>"+question+"</h3>";
     // display the answer options
     // the += appends to the data we started on the line above
-    test.innerHTML += "<input class='hidden' type='checkbox' id='check0' value='A' name='choices'><label for='check0'><div class='btn-check0 btn-style'> "+chA+"</div></label><br>";
-    test.innerHTML += "<input class='hidden' type='checkbox' id='check1' value='B' name='choices'><label for='check1'><div class='btn-check1 btn-style'> "+chB+"</div></label><br>";
-    test.innerHTML += "<input class='hidden' type='checkbox' id='check2' value='C' name='choices'><label for='check2'><div class='btn-check2 btn-style'> "+chC+"</div></label><br>"
-    test.innerHTML += "<input class='hidden' type='checkbox' id='check3' value='D' name='choices'><label for='check3'><div class='btn-check3 btn-style'> "+chD+"</div></label><br><br>";
+    test.innerHTML += "<input class='hidden' type='checkbox' onclick='selectOne(this.id)' id='0' value='A' name='choices'><label for='0'><div class='btn-check0 btn-style' id='check0'> "+chA+"</div></label><br>";
+
+    test.innerHTML += "<input class='hidden' type='checkbox' onclick='selectOne(this.id)' id='1' value='B' name='choices'><label for='1'><div class='btn-check1 btn-style' id='check1'> "+chB+"</div></label><br>";
+
+    test.innerHTML += "<input class='hidden' type='checkbox' onclick='selectOne(this.id)' id='2' value='C' name='choices'><label for='2'><div class='btn-check2 btn-style' id='check2'> "+chC+"</div></label><br>"
+
+    test.innerHTML += "<input class='hidden' type='checkbox' onclick='selectOne(this.id)' id='3' value='D' name='choices'><label for='3'><div class='btn-check3 btn-style' id='check3'> "+chD+"</div></label><br><br>";
+
     test.innerHTML += "<button id='submit-response' onclick='checkAnswer()'>Submit Answer</button>";
 
+    var choice0 = document.getElementById("0");
+    var choice1 = document.getElementById("1");
+    var choice2 = document.getElementById("2");
+    var choice3 = document.getElementById("3");
+
+    choice0.onclick = function() {
+        check0.style.backgroundColor = "lightblue";
+        check1.style.backgroundColor = "white";
+        check2.style.backgroundColor = "white";
+        check3.style.backgroundColor = "white";    
+    }
+
+    choice1.onclick = function() {
+        check1.style.backgroundColor = "lightblue";
+        check0.style.backgroundColor = "white";
+        check2.style.backgroundColor = "white";
+        check3.style.backgroundColor = "white";
+    }
+
+    choice2.onclick = function() {
+        check2.style.backgroundColor = "lightblue";
+        check1.style.backgroundColor = "white";
+        check0.style.backgroundColor = "white";
+        check3.style.backgroundColor = "white";
+    }
+
+    choice3.onclick = function() {
+        check3.style.backgroundColor = "lightblue";
+        check1.style.backgroundColor = "white";
+        check2.style.backgroundColor = "white";
+        check0.style.backgroundColor = "white";
+    }
+
+}
+
+// to select only ONE choice
+function selectOne(id) {
+    
+    for (var i = 0; i < choices.length; i++) 
+    {
+        document.getElementById(i).checked = false;
+    }
+    document.getElementById(id).checked = true;
 }
 
 function checkAnswer(){
     
-    for(var i=0; i<choices.length; i++){
-      if(choices[i].checked){
+    for(var i = 0; i < choices.length; i++)
+    {
+        if(choices[i].checked)
+    {
         choice = choices[i].value;
-      }
+    }
     }
     // checks if answer matches the correct choice
     if(choice == questions[points].answer){
       //each time there is a correct answer this value increases
       correct++, points++, createQuestion(); 
         } else {
-            (alert("INCORRECT, TIME DEDUCTED BY 10s")), timeLeft -= 10, alert("TRY AGAIN");
+            (alert("INCORRECT, TIME DEDUCTED BY 10s, TRY AGAIN")), timeLeft -= 10;
 }
 }
   
