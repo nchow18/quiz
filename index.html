@@ -5,14 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Taskinator</title>
+  <title>Quizinator</title>
   <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <header>
     <h2 id="currentScore">WELCOME to the QUIZINATOR</h2>
-
-
+    <p id="history"></p>
     <form name="clock_main">
         <div id="timer">
         </div>
@@ -22,12 +21,13 @@
 
 <body>
     <h2 id="test_status"></h2>
-    <div id="test">
-        <div class="intro">Click START to begin
+        <div id="test">
+                <input type="text" name="player-name" id="player-name" placeholder="Enter Player Name"/><br>
+                <button type="button" id="submit-name" name="btn-name" class="btn-submit">SUBMIT NAME</button>
+                <div class="intro">Click START to begin
+                </div>
+                <button type="button" name="start" id="start-button">START</button>
         </div>
-        <button type="button" name="start" id="start-button">START</button>
-        
-    </div>
 
     <script src="./assets/js/script.js"></script>
  </body>

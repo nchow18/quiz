@@ -2,11 +2,13 @@ var points = 0;
 var correct = 0;
 var score = 0;
 var test, test_status, question, choice, chA, chB, chC, chD;
-var startQuiz = document.getElementById("start-button")
-var pauseQuiz = document.querySelector("#pause-button")
+var startQuiz = document.getElementById("start-button");
+var playerEl = document.getElementById("player-name");
+var submitname = document.getElementById("submit-name");
 var timeLeft = 60;
-var choices = document.getElementsByName("choices");
+var log = 0;
 
+var choices = document.getElementsByName("choices");
 var questions = [
     {
         question: "Who is the Actor for Ironman in Avengers?",
@@ -34,18 +36,12 @@ var questions = [
     } 
 ];
 
-// for the username
-function setcookie() {
-    var userName = prompt("Enter your Name");
-    document.cookie = "name=" + userName + "; expires=Thu, 18 Dec 2021 12:00:00 GMT";
-}
-
 function startTimer() {
 
     var begin = setInterval(function()
     {
         if(timeLeft <= 0) {
-            clearInterval(begin); (document.getElementById("timer").innerHTML = "FINISHED"),(alert("QUIZ ENDED!")), (document.getElementById("test").innerHTML = "<h2>Try Again?</h2><a href='index.html'><button type='button' name='start' id='start-button'>RETRY</button></a>");
+            clearInterval(begin); (document.getElementById("timer").innerHTML = "FINISHED"),(alert("QUIZ ENDED!")), (document.getElementById("test").innerHTML = "<h2>Play Again?</h2><a href='index.html'><button type='button' name='start' id='start-button'>RETRY</button></a>");
             } else { 
                 (document.getElementById("timer").innerHTML = timeLeft + " seconds remaining");
         }
@@ -53,13 +49,42 @@ function startTimer() {
         }, 1000);
 }
 
+function logName() {
+
+    var playerNameInput = document.querySelector("input[name='player-name']").value;
+
+    if (!playerNameInput) {
+        alert("You need to enter a Player Name!");
+        return false;
+    } else {
+
+    var key = localStorage.key(log);
+    var playername = localStorage.setItem(log, playerNameInput);
+    var current = localStorage.getItem(log);
+
+    document.getElementById("history").innerHTML = "Player Name: "+current;
+
+
+    log++;
+    return log;
+    
+    }
+}
+
 //starting the quiz with a timer
 function start() {
 
-    setcookie();
-    createQuestion();
-    startTimer();
-}   
+    var playerNameInput = document.querySelector("input[name='player-name']").value;
+
+    if (!playerNameInput) {
+        alert("You need to enter a Player Name!");
+        return false;
+    } else {
+        createQuestion();
+        startTimer();
+    }
+}
+
 
 // this get function is short for the getElementById function  
 function get(x){
@@ -144,6 +169,7 @@ function selectOne(id) {
     document.getElementById(id).checked = true;
 }
 
+// loops createQuestion() to verify correct answers
 function checkAnswer(){
     
     for(var i = 0; i < choices.length; i++)
@@ -164,4 +190,5 @@ function checkAnswer(){
   
 // Add event listener to call createQuestion when start quiz is clicked
 startQuiz.addEventListener("click", start);
+submitname.addEventListener("click", logName);
 
