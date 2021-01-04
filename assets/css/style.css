@@ -37,10 +37,10 @@ body input {
     text-align: center;
 }
 
-.submit-btn {
+.btn-submit {
     width: 25%;
-    padding: .5rem;
-    margin: .5rem;
+    padding: 1rem;
+    margin: 1.5rem;
     font-size: 1rem;
     font-weight: bold;
     background-color: black;
@@ -48,7 +48,7 @@ body input {
     border-radius: 10px;
 }
 
-.submit-btn:hover {
+.btn-submit:hover {
     background-color: blue;
 }
 
@@ -202,6 +202,10 @@ footer {
     .btn-style {
         margin-left: 15%;
         margin-right: 15%;
+    }
+
+    .btn-submit {
+        width: 50%;
     }
 
     #submit-response {

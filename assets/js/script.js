@@ -5,6 +5,7 @@ var test, test_status, question, choice, chA, chB, chC, chD;
 var startQuiz = document.getElementById("start-button");
 var playerEl = document.getElementById("player-name");
 var submitname = document.getElementById("submit-name");
+var playerNameInput = document.querySelector("input[name='player-name']");
 var timeLeft = 60;
 var log = 0;
 
@@ -51,7 +52,7 @@ function startTimer() {
 
 function logName() {
 
-    var playerNameInput = document.querySelector("input[name='player-name']").value;
+    var name = playerNameInput.value;
 
     if (!playerNameInput) {
         alert("You need to enter a Player Name!");
@@ -59,11 +60,10 @@ function logName() {
     } else {
 
     var key = localStorage.key(log);
-    var playername = localStorage.setItem(log, playerNameInput);
+    var playername = localStorage.setItem(log, name);
     var current = localStorage.getItem(log);
 
     document.getElementById("history").innerHTML = "Player Name: "+current;
-
 
     log++;
     return log;
@@ -84,7 +84,6 @@ function start() {
         startTimer();
     }
 }
-
 
 // this get function is short for the getElementById function  
 function get(x){
@@ -182,10 +181,11 @@ function checkAnswer(){
     // checks if answer matches the correct choice
     if(choice == questions[points].answer){
       //each time there is a correct answer this value increases
-      correct++, points++, createQuestion(); 
+      correct++; points++; 
         } else {
-            (alert("INCORRECT, TIME DEDUCTED BY 10s, TRY AGAIN")), timeLeft -= 10;
+            alert("INCORRECT, TIME DEDUCTED BY 10s"); timeLeft -= 10; points++;
 }
+createQuestion();
 }
   
 // Add event listener to call createQuestion when start quiz is clicked
