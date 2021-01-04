@@ -113,7 +113,7 @@ footer {
 }
 
 .hidden {
-    display: none;
+    display: ;
 }
 
 #check0:checked ~ label .btn-check0 {
