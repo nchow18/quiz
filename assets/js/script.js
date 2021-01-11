@@ -86,23 +86,23 @@ function start() {
 }
 
 
-// this get function is short for the getElementById function  
+ 
 function get(x){
     return document.getElementById(x);
 }
 
-// this function renders a question for display on the page
+
 function createQuestion(){
     var currentScore = document.getElementById("currentScore").innerHTML = "<h2>Your Current Score: "+correct+"</h2>";
     test = get("test");
     if(points >= questions.length){
       test.innerHTML = "<h2>You got "+correct+" of "+questions.length+" questions correct</h2>";
       get("test_status").innerHTML = "Test completed";
-      // resets the variable to allow users to restart the test
+  
       points = 0;
       correct = 0;
       alert("Test Completed")
-      // stops rest of createQuestion function running when test is completed
+
       return false;
     }
     get("test_status").innerHTML = "Question "+(points+1)+" of "+questions.length;
@@ -112,10 +112,9 @@ function createQuestion(){
     chB = questions[points].b;
     chC = questions[points].c;
     chD = questions[points].d;
-    // display the question
+
     test.innerHTML = "<h3>"+question+"</h3>";
-    // display the answer options
-    // the += appends to the data we started on the line above
+ 
     test.innerHTML += "<input class='hidden' type='checkbox' onclick='selectOne(this.id)' id='0' value='A' name='choices'><label for='0'><div class='btn-check0 btn-style' id='check0' onclick='choice0(this.id)'> "+chA+"</div></label><br>";
 
     test.innerHTML += "<input class='hidden' type='checkbox' onclick='selectOne(this.id)' id='1' value='B' name='choices'><label for='1'><div class='btn-check1 btn-style' id='check1' onclick='choice1(this.id)'> "+chB+"</div></label><br>";
@@ -179,9 +178,9 @@ function checkAnswer(){
         choice = choices[i].value;
     }
     }
-    // checks if answer matches the correct choice
+
     if(choice == questions[points].answer){
-      //each time there is a correct answer this value increases
+
       correct++, points++, createQuestion(); 
         } else {
             (alert("INCORRECT, TIME DEDUCTED BY 10s, TRY AGAIN")), timeLeft -= 10;
